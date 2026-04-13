@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: ./docker-lab
+      dockerfile: dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+    expose:
+      - "3000"
+    healthcheck:
+      test:
+        ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3000/healthz', res => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  nginx:
+    build:
+      context: ./nginx-lab
+      dockerfile: dockerfile
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "8080:80"

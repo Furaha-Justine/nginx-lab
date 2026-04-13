@@ -1,0 +1,15 @@
+{
+  "name": "docker-lab",
+  "version": "1.0.0",
+  "description": "A simple Node.js and Express Docker lab.",
+  "private": true,
+  "main": "app.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": { "start": "node app.js" },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {}
+}
